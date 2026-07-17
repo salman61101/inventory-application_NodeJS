@@ -32,8 +32,6 @@ The project is designed as a clean, portfolio-ready CRUD application with reusab
 
 ## Screenshots
 
-> Replace these placeholders with real screenshots after capturing the running app.
-
 ### Home Page
 
 ![Home Page](./screenshots/home-page.png)
