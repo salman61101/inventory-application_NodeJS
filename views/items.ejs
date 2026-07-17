@@ -5,36 +5,31 @@
 </head>
 <body>
 
-<h1><%= title %></h1>
+<h1>Items</h1>
 
-<table border="1" cellpadding="10">
-
-<tr>
-    <th>Name</th>
-    <th>Category</th>
-    <th>Price</th>
-    <th>Quantity</th>
-</tr>
+<ul>
 
 <% items.forEach(item => { %>
 
-<tr>
+<li>
 
-    <td><%= item.name %></td>
+    <strong><%= item.name %></strong><br>
 
-    <td><%= item.category %></td>
+    Description: <%= item.description %><br>
 
-    <td>$<%= item.price %></td>
+    Price: $<%= item.price %><br>
 
-    <td><%= item.quantity %></td>
+    Quantity: <%= item.quantity %><br>
 
-</tr>
+    Category: <%= item.category %>
+
+</li>
+
+<hr>
 
 <% }) %>
 
-</table>
-
-<br>
+</ul>
 
 <a href="/">← Home</a>
 

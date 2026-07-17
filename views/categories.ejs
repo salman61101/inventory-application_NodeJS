@@ -5,24 +5,19 @@
 </head>
 <body>
 
-<h1><%= title %></h1>
+<h1>Categories</h1>
 
 <ul>
+    <% categories.forEach(category => { %>
 
-<% categories.forEach(category => { %>
-
-    <li>
-        <strong><%= category.name %></strong>
+        <li>
+            <strong><%= category.name %></strong><br>
+            <%= category.description %>
+        </li>
 
         <br>
 
-        <%= category.description %>
-    </li>
-
-    <br>
-
-<% }) %>
-
+    <% }) %>
 </ul>
 
 <a href="/">← Home</a>
