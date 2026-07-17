@@ -8,6 +8,21 @@ async function getAllCategories() {
 
     return rows;
 }
+async function insertCategory(name, description) {
+    await pool.query(
+        `
+        INSERT INTO categories(name, description)
+        VALUES($1, $2)
+        `,
+        [name, description]
+    );
+}
+
+module.exports = {
+    getAllCategories,
+    getAllItems,
+    insertCategory,
+};
 
 // Get all items
 async function getAllItems() {

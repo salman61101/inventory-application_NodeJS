@@ -9,6 +9,28 @@ async function getCategories(req, res) {
     });
 }
 
+async function createCategoryGet(req, res) {
+    res.render("categoryForm", {
+        title: "Add Category"
+    });
+}
+
+async function createCategoryPost(req, res) {
+
+    const { name, description } = req.body;
+
+    await db.insertCategory(name, description);
+
+    res.redirect("/categories");
+}
+
+module.exports = {
+    getCategories,
+    getItems,
+    createCategoryGet,
+    createCategoryPost,
+};
+
 async function getItems(req, res) {
     const items = await db.getAllItems();
 
