@@ -62,6 +62,32 @@ async function createItemPost(req, res) {
     res.redirect("/items");
 }
 
+async function getCategoryDetails(req, res) {
+
+    const id = req.params.id;
+
+    const category = await db.getCategoryById(id);
+
+    res.render("categoryDetails", {
+        title: category.name,
+        category,
+    });
+}
+
+async function getItemDetails(req, res) {
+
+    const id = req.params.id;
+
+    const item = await db.getItemById(id);
+
+    res.render("itemDetails", {
+        title: item.name,
+        item,
+    });
+}
+
+
+
 module.exports = {
     getCategories,
     getItems,
@@ -71,4 +97,7 @@ module.exports = {
 
     createItemGet,
     createItemPost,
+
+    getCategoryDetails,
+    getItemDetails,
 };

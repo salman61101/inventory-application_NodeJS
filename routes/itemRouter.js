@@ -12,4 +12,6 @@ itemRouter.get("/new", inventoryController.createItemGet);
 // Handle form submission
 itemRouter.post("/new", inventoryController.createItemPost);
 
+itemRouter.get("/:id", inventoryController.getItemDetails);
+
 module.exports = itemRouter;

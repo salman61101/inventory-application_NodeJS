@@ -9,4 +9,6 @@ categoryRouter.get("/new", inventoryController.createCategoryGet);
 
 categoryRouter.post("/new", inventoryController.createCategoryPost);
 
+categoryRouter.get("/:id", inventoryController.getCategoryDetails);
+
 module.exports = categoryRouter;
