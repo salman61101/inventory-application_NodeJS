@@ -3,25 +3,20 @@ const pool = require("./pool");
 // Get all categories
 async function getAllCategories() {
     const { rows } = await pool.query(
-        "SELECT * FROM categories ORDER BY name"
+        "SELECT * FROM categories ORDER BY id"
     );
+
     return rows;
 }
 
 // Get all items
 async function getAllItems() {
     const { rows } = await pool.query(`
-        SELECT
-            items.id,
-            items.name,
-            items.description,
-            items.price,
-            items.quantity,
-            categories.name AS category
+        SELECT items.*, categories.name AS category
         FROM items
         JOIN categories
         ON items.category_id = categories.id
-        ORDER BY items.name;
+        ORDER BY items.id
     `);
 
     return rows;
@@ -29,5 +24,5 @@ async function getAllItems() {
 
 module.exports = {
     getAllCategories,
-    getAllItems
+    getAllItems,
 };
