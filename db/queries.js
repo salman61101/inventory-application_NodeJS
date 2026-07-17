@@ -8,6 +8,8 @@ async function getAllCategories() {
 
     return rows;
 }
+
+// Insert category
 async function insertCategory(name, description) {
     await pool.query(
         `
@@ -17,12 +19,6 @@ async function insertCategory(name, description) {
         [name, description]
     );
 }
-
-module.exports = {
-    getAllCategories,
-    getAllItems,
-    insertCategory,
-};
 
 // Get all items
 async function getAllItems() {
@@ -37,7 +33,9 @@ async function getAllItems() {
     return rows;
 }
 
+// Export everything ONCE
 module.exports = {
     getAllCategories,
     getAllItems,
+    insertCategory,
 };

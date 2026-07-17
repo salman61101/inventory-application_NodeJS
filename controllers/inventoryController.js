@@ -9,14 +9,22 @@ async function getCategories(req, res) {
     });
 }
 
+async function getItems(req, res) {
+    const items = await db.getAllItems();
+
+    res.render("items", {
+        title: "Items",
+        items,
+    });
+}
+
 async function createCategoryGet(req, res) {
     res.render("categoryForm", {
-        title: "Add Category"
+        title: "Add Category",
     });
 }
 
 async function createCategoryPost(req, res) {
-
     const { name, description } = req.body;
 
     await db.insertCategory(name, description);
@@ -29,18 +37,4 @@ module.exports = {
     getItems,
     createCategoryGet,
     createCategoryPost,
-};
-
-async function getItems(req, res) {
-    const items = await db.getAllItems();
-
-    res.render("items", {
-        title: "Items",
-        items,
-    });
-}
-
-module.exports = {
-    getCategories,
-    getItems,
 };
