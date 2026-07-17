@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head", { title }) %>
+<body>
+    <div class="page-shell">
+        <%- include("partials/nav") %>
+
+        <main class="container">
+            <section class="page-header">
+                <p class="eyebrow">Items</p>
+                <h1><%= item.name %></h1>
+                <p class="muted">Confirm this action before removing the item from inventory.</p>
+            </section>
+
+            <section class="card form-card">
+                <h2>Delete item?</h2>
+                <p>Are you sure you want to delete <strong><%= item.name %></strong>?</p>
+
+                <form action="/items/<%= item.id %>/delete" method="POST" class="stacked-form">
+                    <div class="actions">
+                        <a class="button secondary" href="/items/<%= item.id %>">Back</a>
+                        <button class="button danger" type="submit">Delete Item</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

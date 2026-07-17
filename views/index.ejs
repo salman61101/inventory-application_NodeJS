@@ -1,23 +1,40 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Inventory App</title>
-</head>
+<html lang="en">
+<%- include("partials/head", { title: "Home" }) %>
 <body>
+    <div class="page-shell">
+        <%- include("partials/nav") %>
 
-    <h1>Inventory Management System</h1>
+        <main class="container">
+            <section class="hero card">
+                <p class="eyebrow">Inventory Management System</p>
+                <h1>Track categories and items with a clean, simple workflow.</h1>
+                <p class="lead">Manage your inventory from one place with fast navigation and focused detail pages.</p>
 
-    <ul>
-        <li><a href="/categories">View Categories</a></li>
-        <li><a href="/items">View Items</a></li>
-        <ul>
-     <li><a href="/categories">View Categories</a></li>
-    <li><a href="/categories/new">Add Category</a></li>
+                <div class="actions">
+                    <a class="button" href="/categories">View Categories</a>
+                    <a class="button secondary" href="/items">View Items</a>
+                    <a class="button ghost" href="/categories/new">Add Category</a>
+                    <a class="button ghost" href="/items/new">Add Item</a>
+                </div>
+            </section>
 
-    <li><a href="/items">View Items</a></li>
-    <li><a href="/items/new">Add Item</a></li>
-</ul>
-    </ul>
+            <section class="card-grid">
+                <article class="card feature-card">
+                    <p class="eyebrow">Categories</p>
+                    <h2>Organize your inventory structure.</h2>
+                    <p>Group related products and keep the catalog easy to browse.</p>
+                    <a class="button" href="/categories">View Categories</a>
+                </article>
 
+                <article class="card feature-card">
+                    <p class="eyebrow">Items</p>
+                    <h2>Track stock and details in one place.</h2>
+                    <p>Review item descriptions, pricing, quantities, and category assignment.</p>
+                    <a class="button" href="/items">View Items</a>
+                </article>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

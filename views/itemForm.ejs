@@ -1,73 +1,56 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title><%= title %></title>
-</head>
+<html lang="en">
+<%- include("partials/head", { title }) %>
 <body>
+    <div class="page-shell">
+        <%- include("partials/nav") %>
 
-<h1><%= title %></h1>
+        <main class="container">
+            <section class="card form-card">
+                <p class="eyebrow">Items</p>
+                <h1><%= title %></h1>
 
-<form action="/items/new" method="POST">
+                <% const selectedCategoryId = item ? String(item.category_id) : ""; %>
 
-    <label>Name</label><br>
-    <input
-        type="text"
-        name="name"
-        required
-    >
-    <br><br>
+                <form action="<%= item ? '/items/' + item.id + '/edit' : '/items/new' %>" method="POST" class="stacked-form">
+                    <label>
+                        <span>Name</span>
+                        <input type="text" name="name" required value="<%= item ? item.name : '' %>">
+                    </label>
 
-    <label>Description</label><br>
-    <textarea
-        name="description"
-        required
-    ></textarea>
-    <br><br>
+                    <label>
+                        <span>Description</span>
+                        <textarea name="description" rows="5" required><%= item ? item.description : '' %></textarea>
+                    </label>
 
-    <label>Price</label><br>
-    <input
-        type="number"
-        step="0.01"
-        name="price"
-        required
-    >
-    <br><br>
+                    <div class="form-row">
+                        <label>
+                            <span>Price</span>
+                            <input type="number" step="0.01" name="price" required value="<%= item ? item.price : '' %>">
+                        </label>
 
-    <label>Quantity</label><br>
-    <input
-        type="number"
-        name="quantity"
-        required
-    >
-    <br><br>
+                        <label>
+                            <span>Quantity</span>
+                            <input type="number" name="quantity" required value="<%= item ? item.quantity : '' %>">
+                        </label>
+                    </div>
 
-    <label>Category</label><br>
+                    <label>
+                        <span>Category</span>
+                        <select name="category_id" required>
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.id %>" <%= selectedCategoryId === String(category.id) ? "selected" : "" %>><%= category.name %></option>
+                            <% }) %>
+                        </select>
+                    </label>
 
-    <select
-        name="category_id"
-        required
-    >
-        <% categories.forEach(category => { %>
-
-            <option value="<%= category.id %>">
-                <%= category.name %>
-            </option>
-
-        <% }) %>
-
-    </select>
-
-    <br><br>
-
-    <button type="submit">
-        Add Item
-    </button>
-
-</form>
-
-<br>
-
-<a href="/items">← Back to Items</a>
-
+                    <div class="actions">
+                        <a class="button secondary" href="/items">Back</a>
+                        <button class="button" type="submit"><%= item ? "Update Item" : "Add Item" %></button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

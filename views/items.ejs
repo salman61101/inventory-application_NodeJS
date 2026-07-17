@@ -1,39 +1,59 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title><%= title %></title>
-</head>
+<html lang="en">
+<%- include("partials/head", { title }) %>
 <body>
+    <div class="page-shell">
+        <%- include("partials/nav") %>
 
-<h1>Items</h1>
+        <main class="container">
+            <section class="page-header">
+                <p class="eyebrow">Items</p>
+                <h1>All Items</h1>
+                <p class="muted">Review product details, pricing, stock, and category assignment.</p>
+                <div class="actions">
+                    <a class="button" href="/items/new">Add Item</a>
+                </div>
+            </section>
 
-<ul>
-
-<% items.forEach(item => { %>
-
-<li>
-
-    <a href="/items/<%= item.id %>">
-    <%= item.name %>
-</a>
-
-    Description: <%= item.description %><br>
-
-    Price: $<%= item.price %><br>
-
-    Quantity: <%= item.quantity %><br>
-
-    Category: <%= item.category %>
-
-</li>
-
-<hr>
-
-<% }) %>
-
-</ul>
-
-<a href="/">← Home</a>
-
+            <section class="card table-card">
+                <% if (items.length === 0) { %>
+                    <p class="empty-state">No items have been added yet.</p>
+                <% } else { %>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Category</th>
+                                    <th class="actions-col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% items.forEach(item => { %>
+                                    <tr>
+                                        <td><a href="/items/<%= item.id %>"><%= item.name %></a></td>
+                                        <td><%= item.description %></td>
+                                        <td>$<%= Number(item.price).toFixed(2) %></td>
+                                        <td><%= item.quantity %></td>
+                                        <td><%= item.category %></td>
+                                        <td>
+                                            <div class="inline-actions">
+                                                <a class="button tiny secondary" href="/items/<%= item.id %>">View</a>
+                                                <a class="button tiny" href="/items/<%= item.id %>/edit">Edit</a>
+                                                <a class="button tiny danger" href="/items/<%= item.id %>/delete">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } %>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

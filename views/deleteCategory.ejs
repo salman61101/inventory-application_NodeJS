@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head", { title }) %>
+<body>
+    <div class="page-shell">
+        <%- include("partials/nav") %>
+
+        <main class="container">
+            <section class="page-header">
+                <p class="eyebrow">Categories</p>
+                <h1><%= category.name %></h1>
+                <p class="muted">Review the category before removing it from the inventory.</p>
+            </section>
+
+            <% if (!canDelete) { %>
+                <section class="card notice danger">
+                    <h2>This category cannot be deleted because it still contains items.</h2>
+                    <p>Remove or reassign the items below before trying again.</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% items.forEach(item => { %>
+                                    <tr>
+                                        <td><a href="/items/<%= item.id %>"><%= item.name %></a></td>
+                                        <td><%= item.description %></td>
+                                        <td>$<%= Number(item.price).toFixed(2) %></td>
+                                        <td><%= item.quantity %></td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="actions">
+                        <a class="button secondary" href="/categories/<%= category.id %>">Back</a>
+                    </div>
+                </section>
+            <% } else { %>
+                <section class="card form-card">
+                    <h2>Delete category?</h2>
+                    <p>Are you sure you want to delete <strong><%= category.name %></strong>?</p>
+
+                    <form action="/categories/<%= category.id %>/delete" method="POST" class="stacked-form">
+                        <div class="actions">
+                            <a class="button secondary" href="/categories/<%= category.id %>">Back</a>
+                            <button class="button danger" type="submit">Delete Category</button>
+                        </div>
+                    </form>
+                </section>
+            <% } %>
+        </main>
+    </div>
+</body>
+</html>

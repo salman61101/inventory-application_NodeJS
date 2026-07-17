@@ -1,54 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-</head>
+<%- include("partials/head", { title }) %>
 <body>
+    <div class="page-shell">
+        <%- include("partials/nav") %>
 
-    <h1>Add New Category</h1>
+        <main class="container">
+            <section class="card form-card">
+                <p class="eyebrow">Categories</p>
+                <h1><%= title %></h1>
 
-    <a href="/categories/new">➕ Add New Category</a>
+                <form action="<%= category ? '/categories/' + category.id + '/edit' : '/categories/new' %>" method="POST" class="stacked-form">
+                    <label>
+                        <span>Category Name</span>
+                        <input type="text" name="name" required value="<%= category ? category.name : '' %>">
+                    </label>
 
-<br><br>
+                    <label>
+                        <span>Description</span>
+                        <textarea name="description" rows="5" required><%= category ? category.description : '' %></textarea>
+                    </label>
 
-    <form action="/categories/new" method="POST">
-
-        <div>
-            <label for="name">Category Name</label><br>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                required
-            >
-        </div>
-
-        <br>
-
-        <div>
-            <label for="description">Description</label><br>
-            <textarea
-                id="description"
-                name="description"
-                rows="4"
-                cols="40"
-                required
-            ></textarea>
-        </div>
-
-        <br>
-
-        <button type="submit">
-            Add Category
-        </button>
-
-    </form>
-
-    <br>
-
-    <a href="/categories">← Back to Categories</a>
-
+                    <div class="actions">
+                        <a class="button secondary" href="/categories">Back</a>
+                        <button class="button" type="submit"><%= category ? "Update Category" : "Add Category" %></button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
 </body>
 </html>

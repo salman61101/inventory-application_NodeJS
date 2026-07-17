@@ -41,6 +41,43 @@ async function getCategoriesForForm() {
     return rows;
 }
 
+async function getItemsByCategoryId(categoryId) {
+    const { rows } = await pool.query(
+        `
+        SELECT id, name, description, price, quantity
+        FROM items
+        WHERE category_id = $1
+        ORDER BY name
+        `,
+        [categoryId]
+    );
+
+    return rows;
+}
+
+async function getCategoryItemCount(categoryId) {
+    const { rows } = await pool.query(
+        `
+        SELECT COUNT(*)::int AS count
+        FROM items
+        WHERE category_id = $1
+        `,
+        [categoryId]
+    );
+
+    return rows[0].count;
+}
+
+async function deleteCategory(id) {
+    await pool.query(
+        `
+        DELETE FROM categories
+        WHERE id = $1
+        `,
+        [id]
+    );
+}
+
 async function insertItem(name, description, price, quantity, categoryId) {
     await pool.query(
         `
@@ -80,6 +117,51 @@ async function getItemById(id) {
     return rows[0];
 }
 
+async function updateCategory(id, name, description) {
+    await pool.query(
+        `
+        UPDATE categories
+        SET
+            name = $1,
+            description = $2
+        WHERE id = $3
+        `,
+        [name, description, id]
+    );
+}
+
+async function updateItem(
+    id,
+    name,
+    description,
+    price,
+    quantity,
+    category_id
+) {
+    await pool.query(
+        `
+        UPDATE items
+        SET
+            name = $1,
+            description = $2,
+            price = $3,
+            quantity = $4,
+            category_id = $5
+        WHERE id = $6
+        `,
+        [name, description, price, quantity, category_id, id]
+    );
+}
+
+async function deleteItem(id) {
+    await pool.query(
+        `
+        DELETE FROM items
+        WHERE id = $1
+        `,
+        [id]
+    );
+}
 
 
 // Export everything ONCE
@@ -89,8 +171,15 @@ module.exports = {
 
     insertCategory,
     getCategoriesForForm,
+    getItemsByCategoryId,
+    getCategoryItemCount,
+    deleteCategory,
     insertItem,
 
     getCategoryById,
     getItemById,
+
+    updateCategory,
+    updateItem,
+    deleteItem,
 };

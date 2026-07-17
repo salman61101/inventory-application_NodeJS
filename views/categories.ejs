@@ -1,28 +1,53 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title><%= title %></title>
-</head>
+<html lang="en">
+<%- include("partials/head", { title }) %>
 <body>
+    <div class="page-shell">
+        <%- include("partials/nav") %>
 
-<h1>Categories</h1>
+        <main class="container">
+            <section class="page-header">
+                <p class="eyebrow">Categories</p>
+                <h1>All Categories</h1>
+                <p class="muted">Browse every category in the inventory.</p>
+                <div class="actions">
+                    <a class="button" href="/categories/new">Add Category</a>
+                </div>
+            </section>
 
-<ul>
-    <% categories.forEach(category => { %>
-
-        <li>
-            <a href="/categories/<%= category.id %>">
-    <%= category.name %>
-</a>
-            <%= category.description %>
-        </li>
-
-        <br>
-
-    <% }) %>
-</ul>
-
-<a href="/">← Home</a>
-
+            <section class="card table-card">
+                <% if (categories.length === 0) { %>
+                    <p class="empty-state">No categories have been added yet.</p>
+                <% } else { %>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th class="actions-col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% categories.forEach(category => { %>
+                                    <tr>
+                                        <td><a href="/categories/<%= category.id %>"><%= category.name %></a></td>
+                                        <td><%= category.description %></td>
+                                        <td>
+                                            <div class="inline-actions">
+                                                <a class="button tiny secondary" href="/categories/<%= category.id %>">View</a>
+                                                <a class="button tiny" href="/categories/<%= category.id %>/edit">Edit</a>
+                                                <a class="button tiny danger" href="/categories/<%= category.id %>/delete">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } %>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
