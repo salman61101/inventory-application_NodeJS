@@ -33,9 +33,30 @@ async function getAllItems() {
     return rows;
 }
 
+async function getCategoriesForForm() {
+    const { rows } = await pool.query(
+        "SELECT id, name FROM categories ORDER BY name"
+    );
+
+    return rows;
+}
+
+async function insertItem(name, description, price, quantity, categoryId) {
+    await pool.query(
+        `
+        INSERT INTO items
+        (name, description, price, quantity, category_id)
+        VALUES ($1, $2, $3, $4, $5)
+        `,
+        [name, description, price, quantity, categoryId]
+    );
+}
+
 // Export everything ONCE
 module.exports = {
     getAllCategories,
     getAllItems,
     insertCategory,
+    getCategoriesForForm,
+    insertItem,
 };
