@@ -10,9 +10,20 @@ async function getAllCategories() {
 
 // Get all items
 async function getAllItems() {
-    const { rows } = await pool.query(
-                "SELECT * FROM items ORDER BY name"
-            );
+    const { rows } = await pool.query(`
+        SELECT
+            items.id,
+            items.name,
+            items.description,
+            items.price,
+            items.quantity,
+            categories.name AS category
+        FROM items
+        JOIN categories
+        ON items.category_id = categories.id
+        ORDER BY items.name;
+    `);
+
     return rows;
 }
 
